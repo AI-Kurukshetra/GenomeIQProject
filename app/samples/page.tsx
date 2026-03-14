@@ -66,7 +66,7 @@ export default async function SamplesPage({ searchParams }: SamplesPageProps) {
           </div>
 
           <Link
-            className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 shadow-[0_0_30px_rgba(0,212,255,0.24)] transition-colors hover:bg-cyan-300"
+            className="ui-button inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 shadow-[0_0_30px_rgba(0,212,255,0.24)] transition-colors hover:bg-cyan-300"
             href="/samples/upload"
           >
             Upload Sample
@@ -272,7 +272,7 @@ export default async function SamplesPage({ searchParams }: SamplesPageProps) {
               ) : (
                 <tr>
                   <td className="px-6 py-16 text-center text-sm text-slate-400" colSpan={8}>
-                    No samples uploaded yet.
+                    No genomic samples available.
                   </td>
                 </tr>
               )}

@@ -214,7 +214,7 @@ export async function generateClinicalReportAction(formData: FormData) {
   revalidatePath("/analytics");
   revalidatePath(`/patients/${sample.patient_id}`);
 
-  redirect(buildRedirectUrl("success", "Clinical report saved to Supabase."));
+  redirect(buildRedirectUrl("success", "Clinical report saved successfully."));
 }
 
 export async function finalizeClinicalReportAction(formData: FormData) {

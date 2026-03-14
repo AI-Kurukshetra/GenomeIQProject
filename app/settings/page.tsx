@@ -18,7 +18,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Settings | GenomeIQ",
-  description: "Platform settings and backend feature management for GenomeIQ.",
+  description: "Platform configuration and feature management for GenomeIQ.",
 };
 
 interface SettingsPageProps {
@@ -63,12 +63,11 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
             Platform Settings
           </p>
           <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
-            Backend-backed settings for knowledge base, integrations, and security posture.
+            Platform configuration for knowledge base, integrations, and security.
           </h1>
           <p className="text-sm leading-6 text-slate-600">
-            This page now writes real backend records for the disease-gene association
-            database and API integration hub while surfacing the current workspace security
-            posture for {context?.organizationName ?? "your organization"}.
+            Configure disease-gene associations, API integrations, and review security
+            settings for {context?.organizationName ?? "your organization"}.
           </p>
         </div>
 
@@ -107,7 +106,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
       <section className="grid gap-4 lg:grid-cols-2">
         <article className="rounded-[32px] border border-white/10 bg-white/5 p-6">
           <p className="font-mono text-xs uppercase tracking-[0.24em] text-cyan-600">
-            Disease-Gene Association Database
+            Disease-Gene Knowledge Base
           </p>
           <h2 className="mt-3 text-2xl font-semibold text-slate-900">
             Curate a knowledge-base association
@@ -189,7 +188,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
                 </div>
               ))
             ) : (
-              <p className="text-sm text-slate-400">No curated associations saved yet.</p>
+              <p className="text-sm text-slate-400">No disease-gene associations configured.</p>
             )}
           </div>
         </article>

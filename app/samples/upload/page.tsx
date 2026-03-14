@@ -40,7 +40,7 @@ export default async function UploadSamplePage() {
             title="Sample Upload Guide"
           />
           <Link
-            className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900"
+            className="ui-button inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900"
             href="/samples"
           >
             Back to samples
@@ -72,8 +72,8 @@ export default async function UploadSamplePage() {
         <CardHeader>
           <CardTitle>VCF upload</CardTitle>
           <CardDescription>
-            Files are uploaded into Supabase Storage first, then registered in
-            `genomic_samples` with status `uploaded`, ready for parser/QC execution from the
+            Upload genomic data files securely. Files are processed and registered
+            automatically, ready for quality control and downstream analysis from the
             Samples page.
           </CardDescription>
         </CardHeader>

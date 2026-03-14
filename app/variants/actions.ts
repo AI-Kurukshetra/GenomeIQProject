@@ -134,5 +134,5 @@ export async function createVariantAction(formData: FormData) {
   revalidatePath("/analytics");
   revalidatePath(`/patients/${sample.patient_id}`);
 
-  redirect(buildRedirectUrl("success", "Variant and annotation data saved to Supabase."));
+  redirect(buildRedirectUrl("success", "Variant and annotations saved successfully."));
 }

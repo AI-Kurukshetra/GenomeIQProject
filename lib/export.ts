@@ -13,7 +13,10 @@ export async function buildDataExportBundle() {
     .select(patientSelectGender)
     .order("created_at", { ascending: false });
 
-  let resolvedPatients = patients;
+  type PatientRow = NonNullable<typeof patients>[number];
+  type LegacyPatientRow = Omit<PatientRow, "gender"> & { sex?: string | null };
+
+  let resolvedPatients: PatientRow[] | null = patients;
   let resolvedPatientsError = patientsError;
 
   if (patientsError && isMissingColumnError(patientsError, "gender")) {
@@ -25,9 +28,7 @@ export async function buildDataExportBundle() {
     if (legacyPatients.error) {
       resolvedPatientsError = legacyPatients.error;
     } else {
-      const legacyRows = (legacyPatients.data ?? []) as Array<
-        { sex?: string | null } & Record<string, unknown>
-      >;
+      const legacyRows = (legacyPatients.data ?? []) as LegacyPatientRow[];
 
       resolvedPatients = legacyRows.map(({ sex, ...rest }) => ({
         ...rest,

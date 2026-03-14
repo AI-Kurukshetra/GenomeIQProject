@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "GenomeIQ",
   description: "AI-powered precision medicine and genomic intelligence platform.",
 };
+export const dynamic = "force-dynamic";
 
 export default function RootLayout({
   children,

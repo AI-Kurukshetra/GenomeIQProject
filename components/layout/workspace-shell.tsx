@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { logoutAction } from "@/app/auth/actions";
@@ -43,14 +44,14 @@ export async function WorkspaceShell({
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/86 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1680px] items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8 xl:px-10">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-slate-950 text-sm font-semibold tracking-[0.28em] text-white shadow-[0_14px_28px_rgba(17,24,39,0.2)]">
+      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/86 backdrop-blur-xl transition-all duration-300 hover:shadow-lg">
+        <div className="flex w-full items-center justify-between gap-4 px-2 py-4 sm:px-3 lg:px-4 xl:px-5">
+          <div className="flex items-center gap-4 group">
+            <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-slate-950 text-sm font-semibold tracking-[0.28em] text-white shadow-[0_14px_28px_rgba(17,24,39,0.2)] transition-all duration-300 group-hover:shadow-[0_18px_36px_rgba(17,24,39,0.3)] group-hover:scale-105">
               GI
             </div>
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.34em] text-slate-400">
+            <div className="transition-transform duration-300 group-hover:translate-x-1">
+              <p className="font-mono text-[11px] uppercase tracking-[0.34em] text-slate-400 transition-colors duration-300 group-hover:text-slate-600">
                 GenomeIQ
               </p>
               <p className="text-lg font-semibold text-slate-950">Clinical intelligence workspace</p>
@@ -58,7 +59,10 @@ export async function WorkspaceShell({
           </div>
 
           <div className="hidden items-center gap-3 sm:flex">
-            <a className="app-pill inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold" href="/dashboard">
+            <a
+              className="app-pill ui-button inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold"
+              href="/dashboard"
+            >
               Dashboard
             </a>
             <WorkspaceQuickActions />
@@ -71,8 +75,8 @@ export async function WorkspaceShell({
         </div>
       </header>
 
-      <div className="mx-auto flex min-h-[calc(100vh-81px)] max-w-[1680px] xl:px-4">
-        <aside className="hidden w-[280px] shrink-0 border-r border-slate-200 bg-white/72 px-6 py-8 lg:block">
+      <div className="flex w-full min-h-[calc(100vh-81px)]">
+        <aside className="hidden w-[240px] shrink-0 border-r border-slate-200 bg-white/72 px-3 py-8 lg:block 2xl:w-[260px] transition-all duration-300 hover:bg-white/80">
           <div className="surface-enter space-y-8">
             <div className="space-y-4">
               <p className="font-mono text-[11px] uppercase tracking-[0.34em] text-slate-400">
@@ -124,7 +128,7 @@ export async function WorkspaceShell({
           </div>
         </aside>
 
-        <div className="flex min-w-0 flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8 xl:px-10">
+        <div className="flex min-w-0 flex-1 flex-col px-2 py-6 sm:px-3 lg:px-4 xl:px-5">
           <div className="surface-enter app-panel rounded-[30px] px-5 py-4">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
               <div className="flex items-center gap-3">
@@ -145,12 +149,82 @@ export async function WorkspaceShell({
             <DashboardNav orientation="horizontal" />
           </div>
 
-          <main className="flex-1 py-6">
+          <main className="flex-1 py-6 w-full">
             <div className="surface-enter surface-enter-delay-1 mb-6">
               <h2 className="text-4xl font-semibold tracking-tight text-slate-950">{heading}</h2>
               <p className="mt-3 max-w-4xl text-base leading-7 text-slate-600">{description}</p>
             </div>
-            {children}
+            <div className="grid gap-6 2xl:grid-cols-[minmax(0,1fr)_320px]">
+              <div className="min-w-0 space-y-6">{children}</div>
+              <aside className="hidden 2xl:block space-y-4">
+                <div className="rounded-[28px] border border-slate-200 bg-white/90 p-5 shadow-[0_18px_40px_rgba(148,163,184,0.16)]">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.26em] text-slate-400">
+                    Workspace Snapshot
+                  </p>
+                  <div className="mt-4 grid gap-3">
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                        Organization
+                      </p>
+                      <p className="mt-2 text-sm font-semibold text-slate-950">
+                        {context.organizationName}
+                      </p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                        Role
+                      </p>
+                      <p className="mt-2 text-sm font-semibold text-slate-950">{context.role}</p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                        Signed in
+                      </p>
+                      <p className="mt-2 text-sm font-semibold text-slate-950">
+                        {context.user.email}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-[28px] border border-slate-200 bg-white/90 p-5 shadow-[0_18px_40px_rgba(148,163,184,0.16)]">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.26em] text-slate-400">
+                    Quick Launch
+                  </p>
+                  <div className="mt-4 grid gap-3">
+                    {[
+                      { href: "/patients/new", label: "Add new patient" },
+                      { href: "/samples/upload", label: "Upload sample" },
+                      { href: "/variants", label: "Review variants" },
+                      { href: "/reports", label: "Generate report" },
+                      { href: "/analytics", label: "Open analytics" },
+                    ].map((item) => (
+                      <Link
+                        key={item.href}
+                        className="ui-button inline-flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900"
+                        href={item.href}
+                      >
+                        <span>{item.label}</span>
+                        <span className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                          Go
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-[0_18px_40px_rgba(148,163,184,0.16)]">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.26em] text-slate-400">
+                    System Notes
+                  </p>
+                  <div className="mt-4 grid gap-3 text-sm text-slate-600">
+                    <p>Use the left navigation for deep workflows and the rail for fast jumps.</p>
+                    <p>Real-time data synchronization across patients, samples, variants, and reports.</p>
+                    <p>Analytics metrics update automatically as new records are created.</p>
+                  </div>
+                </div>
+              </aside>
+            </div>
           </main>
         </div>
       </div>

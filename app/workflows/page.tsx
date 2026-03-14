@@ -94,13 +94,13 @@ export default async function WorkflowsPage({ searchParams }: WorkflowsPageProps
 
           <div className="flex flex-wrap gap-3">
             <Link
-              className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-300"
+              className="ui-button inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-300"
               href="/samples/upload"
             >
               Queue sample
             </Link>
             <Link
-              className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              className="ui-button inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               href="/analytics"
             >
               Open analytics
@@ -215,7 +215,7 @@ export default async function WorkflowsPage({ searchParams }: WorkflowsPageProps
               },
               {
                 label: "Annotation",
-                note: "Public database lookups and consequence mapping will attach here.",
+                note: "External knowledge source integration and consequence prediction.",
               },
               {
                 label: "Interpretation",

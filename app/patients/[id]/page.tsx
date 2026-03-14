@@ -191,7 +191,7 @@ export default async function PatientDetailPage({
                 </span>
               ))
             ) : (
-              <p className="text-sm text-slate-400">No phenotypes captured yet.</p>
+              <p className="text-sm text-slate-400">No phenotypes documented.</p>
             )}
           </div>
         </article>
@@ -331,7 +331,7 @@ export default async function PatientDetailPage({
                 </div>
               ))
             ) : (
-              <p className="text-sm text-slate-400">No consent records saved yet.</p>
+              <p className="text-sm text-slate-400">No consent documentation available.</p>
             )}
           </div>
         </article>

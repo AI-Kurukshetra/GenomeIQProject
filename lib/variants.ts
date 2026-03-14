@@ -31,16 +31,16 @@ export function formatVariantLocus(
 export function getVariantClassificationClasses(classification: VariantClassification) {
   switch (classification) {
     case "pathogenic":
-      return "border-red-500/25 bg-red-500/10 text-red-100";
+      return "variant-pill variant-pill--pathogenic";
     case "likely_pathogenic":
-      return "border-amber-500/25 bg-amber-500/10 text-amber-100";
+      return "variant-pill variant-pill--likely-pathogenic";
     case "likely_benign":
-      return "border-emerald-500/25 bg-emerald-500/10 text-emerald-100";
+      return "variant-pill variant-pill--likely-benign";
     case "benign":
-      return "border-cyan-500/25 bg-cyan-500/10 text-cyan-100";
+      return "variant-pill variant-pill--benign";
     case "uncertain":
     default:
-      return "border-white/15 bg-white/5 text-slate-200";
+      return "variant-pill variant-pill--uncertain";
   }
 }
 

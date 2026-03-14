@@ -46,7 +46,7 @@ export default async function NewPatientPage({ searchParams }: NewPatientPagePro
             title="Patient Intake Guide"
           />
           <Link
-            className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900"
+            className="ui-button inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900"
             href="/patients"
           >
             Back to patients

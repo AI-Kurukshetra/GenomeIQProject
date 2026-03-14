@@ -40,21 +40,21 @@ export default async function PatientsPage({ searchParams }: PatientsPageProps) 
 
   return (
     <div className="space-y-6">
-      <section className="rounded-[32px] border border-white/10 bg-white/5 p-6">
+      <section className="rounded-[32px] border border-white/10 bg-white/5 p-6 transition-all duration-400 hover:shadow-2xl hover:-translate-y-1">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
-          <div className="max-w-3xl space-y-2">
+          <div className="max-w-3xl space-y-2 slide-in-left">
             <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-300">
               Patient Registry
             </p>
             <h1 className="text-3xl font-semibold text-white">All patients</h1>
             <p className="text-sm leading-6 text-slate-400">
               Search by patient name, internal identifier, or phenotype. Filters run
-              against the current organization&apos;s tenant-scoped records.
+              against your organization&apos;s data.
             </p>
           </div>
 
           <Link
-            className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 shadow-[0_0_30px_rgba(0,212,255,0.24)] transition-colors hover:bg-cyan-300"
+            className="ui-button inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 shadow-[0_0_30px_rgba(0,212,255,0.24)] transition-all duration-300 hover:bg-cyan-300 hover:shadow-[0_0_40px_rgba(0,212,255,0.4)] hover:-translate-y-1 active:translate-y-0"
             href="/patients/new"
           >
             Add Patient
@@ -79,7 +79,7 @@ export default async function PatientsPage({ searchParams }: PatientsPageProps) 
             <option value="unknown">Unknown</option>
           </select>
           <button
-            className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+            className="ui-button inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             type="submit"
           >
             Apply Filters
@@ -87,7 +87,7 @@ export default async function PatientsPage({ searchParams }: PatientsPageProps) 
         </form>
       </section>
 
-      <section className="overflow-hidden rounded-[32px] border border-white/10 bg-slate-950/60">
+      <section className="overflow-hidden rounded-[32px] border border-white/10 bg-slate-950/60 transition-all duration-400 hover:shadow-2xl hover:-translate-y-1">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-white/10 text-left">
             <thead className="bg-white/[0.03]">
@@ -107,31 +107,32 @@ export default async function PatientsPage({ searchParams }: PatientsPageProps) 
                   const phenotypes = normalizePhenotypes(patient.phenotypes);
 
                   return (
-                    <tr key={patient.id} className="align-top text-sm text-slate-200">
+                    <tr key={patient.id} className="align-top text-sm text-slate-200 transition-all duration-300 hover:bg-white/5 hover:shadow-lg cursor-pointer group">
                       <td className="px-6 py-5">
-                        <div>
+                        <div className="transition-transform duration-300 group-hover:translate-x-2">
                           <p className="font-semibold text-white">{patient.name}</p>
-                          <p className="mt-1 font-mono text-xs uppercase tracking-[0.2em] text-cyan-300">
+                          <p className="mt-1 font-mono text-xs uppercase tracking-[0.2em] text-cyan-300 transition-colors group-hover:text-cyan-200">
                             {patient.external_id}
                           </p>
                         </div>
                       </td>
-                      <td className="px-6 py-5 text-slate-300">
+                      <td className="px-6 py-5 text-slate-300 transition-colors group-hover:text-slate-200">
                         <p>{formatDate(patient.date_of_birth)}</p>
                         <p className="mt-1 text-xs text-slate-500">
                           {age === null ? "Age unavailable" : `${age} years`}
                         </p>
                       </td>
-                      <td className="px-6 py-5 capitalize text-slate-300">
+                      <td className="px-6 py-5 capitalize text-slate-300 transition-colors group-hover:text-slate-200">
                         {patient.gender ?? "Not provided"}
                       </td>
                       <td className="px-6 py-5">
                         <div className="flex max-w-xl flex-wrap gap-2">
                           {phenotypes.length > 0 ? (
-                            phenotypes.map((phenotype) => (
+                            phenotypes.map((phenotype, index) => (
                               <span
                                 key={phenotype}
-                                className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-100"
+                                className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-100 transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/20 hover:shadow-lg hover:scale-110 cursor-pointer"
+                                style={{ animationDelay: `${index * 50}ms` }}
                               >
                                 {phenotype}
                               </span>
@@ -141,12 +142,12 @@ export default async function PatientsPage({ searchParams }: PatientsPageProps) 
                           )}
                         </div>
                       </td>
-                      <td className="px-6 py-5 text-slate-300">
+                      <td className="px-6 py-5 text-slate-300 transition-colors group-hover:text-slate-200">
                         {formatDate(patient.created_at)}
                       </td>
                       <td className="px-6 py-5">
                         <Link
-                          className="text-sm font-semibold text-cyan-300 transition-colors hover:text-cyan-200"
+                          className="text-sm font-semibold text-cyan-300 transition-all duration-300 hover:text-cyan-200 hover:underline hover:translate-x-1 inline-block"
                           href={`/patients/${patient.id}`}
                         >
                           View patient

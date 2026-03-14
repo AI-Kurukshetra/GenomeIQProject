@@ -71,25 +71,28 @@ export function DashboardNav({
               <Link
                 key={item.href}
                 className={cn(
-                  "group flex items-center gap-3 rounded-[22px] border px-4 py-3 transition-all duration-200",
+                  "group relative flex items-center gap-3 rounded-[22px] border px-4 py-3 transition-all duration-300 ease-out overflow-hidden",
                   isHorizontal ? "min-w-fit whitespace-nowrap bg-white" : "w-full bg-transparent",
                   active
-                    ? "border-slate-300 bg-slate-100 text-slate-900 shadow-[0_14px_30px_rgba(148,163,184,0.16)]"
-                    : "border-transparent text-slate-700 hover:border-slate-200 hover:bg-white hover:shadow-[0_10px_24px_rgba(148,163,184,0.12)]",
+                    ? "border-slate-300 bg-slate-100 text-slate-900 shadow-[0_14px_30px_rgba(148,163,184,0.16)] scale-[1.02]"
+                    : "border-transparent text-slate-700 hover:border-slate-200 hover:bg-white hover:shadow-[0_10px_24px_rgba(148,163,184,0.12)] hover:scale-[1.02]",
                 )}
                 href={item.href}
               >
+                {/* Ripple effect background */}
+                <span className="absolute inset-0 bg-gradient-to-r from-slate-100/0 via-slate-100/50 to-slate-100/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out" />
+                
                 <span
                   className={cn(
-                    "flex h-9 w-9 items-center justify-center rounded-2xl border font-mono text-[11px] uppercase tracking-[0.24em]",
+                    "relative z-10 flex h-9 w-9 items-center justify-center rounded-2xl border font-mono text-[11px] uppercase tracking-[0.24em] transition-all duration-300",
                     active
-                      ? "border-slate-300 bg-slate-200 text-slate-900"
-                      : "border-slate-200 bg-slate-50 text-slate-500 group-hover:border-slate-300 group-hover:bg-white",
+                      ? "border-slate-300 bg-slate-200 text-slate-900 shadow-inner"
+                      : "border-slate-200 bg-slate-50 text-slate-500 group-hover:border-slate-300 group-hover:bg-white group-hover:shadow-sm",
                   )}
                 >
                   {item.code}
                 </span>
-                <span className="text-sm font-medium">{item.label}</span>
+                <span className="relative z-10 text-sm font-medium transition-transform duration-300 group-hover:translate-x-1">{item.label}</span>
               </Link>
             );
           })}

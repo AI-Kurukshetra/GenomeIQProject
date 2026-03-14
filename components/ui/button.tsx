@@ -13,10 +13,10 @@ export interface ButtonProps
 
 const variantClasses: Record<ButtonVariant, string> = {
   default:
-    "bg-[var(--primary)] text-white shadow-[0_0_24px_rgba(14,165,233,0.18)] hover:bg-sky-500",
+    "bg-[var(--primary)] text-white shadow-[0_0_24px_rgba(14,165,233,0.18),0_8px_20px_rgba(0,0,0,0.08)] hover:bg-sky-500 hover:shadow-[0_0_32px_rgba(14,165,233,0.3),0_12px_32px_rgba(0,0,0,0.12)]",
   secondary:
-    "border border-slate-200 bg-white text-slate-900 hover:bg-slate-50",
-  ghost: "text-slate-700 hover:bg-slate-100 hover:text-slate-950",
+    "border border-slate-200 bg-white text-slate-900 hover:bg-slate-50 hover:border-slate-300 hover:shadow-md",
+  ghost: "text-slate-700 hover:bg-slate-100 hover:text-slate-950 hover:shadow-sm",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -33,7 +33,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         className={cn(
-          "group relative inline-flex items-center justify-center overflow-hidden rounded-xl text-sm font-semibold",
+          "ui-button group relative inline-flex items-center justify-center overflow-hidden rounded-xl text-sm font-semibold",
           "transition-[transform,box-shadow,background-color,border-color,color] duration-200 ease-out",
           "hover:-translate-y-0.5 hover:shadow-[0_14px_32px_rgba(148,163,184,0.16)] active:translate-y-px active:scale-[0.985]",
           "disabled:pointer-events-none disabled:opacity-50",

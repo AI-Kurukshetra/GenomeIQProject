@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
   }
 
   if (!code) {
-    return buildLoginRedirect(request, "Authentication code was not returned by Supabase.");
+    return buildLoginRedirect(request, "Authentication failed. Please try again.");
   }
 
   const supabase = await createSupabaseServerClient();

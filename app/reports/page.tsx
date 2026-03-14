@@ -122,13 +122,13 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
 
           <div className="flex flex-wrap gap-3">
             <Link
-              className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-300"
+              className="ui-button inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-300"
               href="/variants"
             >
               Review variants
             </Link>
             <Link
-              className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              className="ui-button inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               href="/analytics"
             >
               Open analytics
@@ -142,7 +142,7 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
             <p className="mt-2 text-3xl font-semibold text-white">
               {formatCount(stats.reportsGenerated)}
             </p>
-            <p className="mt-2 text-sm text-slate-400">Rows stored in `clinical_reports`.</p>
+            <p className="mt-2 text-sm text-slate-400">Total clinical reports generated.</p>
           </article>
           <article className="rounded-3xl border border-white/10 bg-black/20 p-5">
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Finalized</p>
@@ -159,7 +159,7 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
               {formatCount(eligibleSamples.length)}
             </p>
             <p className="mt-2 text-sm text-slate-400">
-              Samples with stored variants and ready for report generation.
+              Samples with variant data ready for clinical reporting.
             </p>
           </article>
           <article className="rounded-3xl border border-white/10 bg-black/20 p-5">

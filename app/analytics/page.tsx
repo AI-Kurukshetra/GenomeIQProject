@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Analytics | GenomeIQ",
   description: "Operational and genomic analytics workspace for GenomeIQ.",
 };
+export const dynamic = "force-dynamic";
 
 function formatCount(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
@@ -107,7 +108,7 @@ export default async function AnalyticsPage() {
       summary:
         phenotypes.length > 0
           ? `Top phenotype signals: ${phenotypes.slice(0, 2).join(", ")}`
-          : "No phenotypes captured yet. Add HPO terms on patient records to improve ranking.",
+          : "No phenotypes available. Add HPO terms to patient profiles for enhanced analysis.",
     };
   });
   const literaturePreview = [
@@ -146,9 +147,8 @@ export default async function AnalyticsPage() {
             Cohort, operational, and AI preview analytics are now testable in UI.
           </h1>
           <p className="text-sm leading-6 text-slate-300">
-            This page blends live Supabase counts with staged analytics cards for literature
-            monitoring, phenotype matching, and risk workflows that are still under backend
-            construction.
+            Real-time operational metrics combined with advanced analytics for literature
+            monitoring, phenotype matching, and clinical risk assessment workflows.
           </p>
         </div>
 
@@ -404,13 +404,13 @@ export default async function AnalyticsPage() {
             Population Genetics
           </p>
           <h2 className="mt-3 text-2xl font-semibold text-white">
-            Current backend status
+            System Status
           </h2>
           <div className="mt-5 grid gap-3">
             {[
-              `${formatCount(stats.variantsFound)} stored variants are available for future cohort and ancestry overlays.`,
-              `${formatCount(patients.length)} patient records can now be correlated with consent and omics context.`,
-              "The schema is ready for population frequency tables; cohort comparison visuals can layer on next.",
+              `${formatCount(stats.variantsFound)} genomic variants available for cohort and ancestry analysis.`,
+              `${formatCount(patients.length)} patient profiles with integrated consent and multi-omics data.`,
+              "Ready for population frequency analysis and cohort comparison visualizations.",
             ].map((item) => (
               <div
                 key={item}

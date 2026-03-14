@@ -15,10 +15,10 @@ import {
 import { getSamplesList } from "@/lib/samples";
 import {
   formatVariantLocus,
-  getVariantClassificationClasses,
   getVariantsList,
 } from "@/lib/variants";
 import type { VariantListItem } from "@/lib/variants";
+import type { AnnotationSource, VariantClassification } from "@/types";
 
 export const metadata: Metadata = {
   title: "Variants | GenomeIQ",
@@ -55,6 +55,52 @@ const annotationSourceOptions = [
   { label: "OMIM", value: "omim" },
   { label: "gnomAD", value: "gnomad" },
 ] as const;
+
+const classificationStyles: Record<VariantClassification, React.CSSProperties> = {
+  pathogenic: {
+    backgroundColor: "rgba(220, 38, 38, 0.3)",
+    borderColor: "rgba(220, 38, 38, 0.7)",
+    color: "#7f1d1d",
+  },
+  likely_pathogenic: {
+    backgroundColor: "rgba(251, 191, 36, 0.32)",
+    borderColor: "rgba(217, 119, 6, 0.65)",
+    color: "#92400e",
+  },
+  likely_benign: {
+    backgroundColor: "rgba(16, 185, 129, 0.26)",
+    borderColor: "rgba(16, 185, 129, 0.6)",
+    color: "#065f46",
+  },
+  benign: {
+    backgroundColor: "rgba(14, 165, 233, 0.26)",
+    borderColor: "rgba(8, 145, 178, 0.6)",
+    color: "#0e7490",
+  },
+  uncertain: {
+    backgroundColor: "rgba(226, 232, 240, 0.9)",
+    borderColor: "rgba(148, 163, 184, 0.6)",
+    color: "#334155",
+  },
+};
+
+const annotationStyles: Record<AnnotationSource, React.CSSProperties> = {
+  clinvar: {
+    backgroundColor: "rgba(14, 165, 233, 0.24)",
+    borderColor: "rgba(14, 165, 233, 0.55)",
+    color: "#0c4a6e",
+  },
+  omim: {
+    backgroundColor: "rgba(216, 70, 239, 0.24)",
+    borderColor: "rgba(216, 70, 239, 0.55)",
+    color: "#6b21a8",
+  },
+  gnomad: {
+    backgroundColor: "rgba(99, 102, 241, 0.24)",
+    borderColor: "rgba(99, 102, 241, 0.55)",
+    color: "#3730a3",
+  },
+};
 
 function matchesFilters(
   searchTerm: string,
@@ -102,8 +148,8 @@ function buildPreviewPanels(leadVariant: VariantListItem | undefined, phenotypeH
     },
     {
       detail: phenotypeHint
-        ? `Phenotype matching can score stored variants against patient findings such as ${phenotypeHint}.`
-        : "Add phenotype-rich patients and stored variants to make AI prioritization meaningful here.",
+        ? `Phenotype matching can prioritize variants against patient findings such as ${phenotypeHint}.`
+        : "Add phenotype-rich patients and variants to enable AI-powered prioritization.",
       eyebrow: "AI Phenotype Match",
       tone: "border-cyan-500/25 bg-cyan-500/10 text-cyan-100",
       title: "Phenotype-driven prioritization",
@@ -201,24 +247,24 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
               Variant Analysis Workspace
             </p>
             <h1 className="text-3xl font-semibold text-white sm:text-4xl">
-              Stored variant records, annotations, and interpretation launch points.
+              Stored variants, annotations, and clinical interpretation tools.
             </h1>
             <p className="text-sm leading-6 text-slate-300">
-              This module now supports real variant capture into Supabase. Save a variant
-              below and it will immediately appear in the review table, patient summary,
-              dashboard counts, and analytics views.
+              Create and manage genomic variants with real-time synchronization. New variants
+              automatically appear across patient summaries, analytics dashboards, and
+              clinical reports.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-3">
             <Link
-              className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-300"
+              className="ui-button inline-flex h-11 items-center justify-center rounded-xl bg-[var(--primary)] px-5 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-300"
               href="/samples/upload"
             >
               Upload sample
             </Link>
             <Link
-              className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              className="ui-button inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               href="/reports"
             >
               Generate reports
@@ -232,7 +278,7 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
             <p className="mt-2 text-3xl font-semibold text-white">
               {formatCount(stats.variantsFound)}
             </p>
-            <p className="mt-2 text-sm text-slate-400">Rows currently stored in `variants`.</p>
+            <p className="mt-2 text-sm text-slate-400">Total genomic variants in your workspace.</p>
           </article>
           <article className="rounded-3xl border border-white/10 bg-black/20 p-5">
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
@@ -249,7 +295,7 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
               {formatCount(annotatedVariants)}
             </p>
             <p className="mt-2 text-sm text-slate-400">
-              Variants already carrying annotation source rows.
+              Variants with clinical annotations and functional data.
             </p>
           </article>
           <article className="rounded-3xl border border-white/10 bg-black/20 p-5">
@@ -269,11 +315,11 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-300">
             Variant Capture
           </p>
-          <h2 className="text-3xl font-semibold text-white">Save a variant into Supabase</h2>
+          <h2 className="text-3xl font-semibold text-white">Add Genomic Variant</h2>
           <p className="text-sm leading-6 text-slate-400">
-            This form creates a real `variants` row and optional `annotations` rows. The
-            selected sample will be marked `completed` so dashboard and analytics counts
-            update from actual stored data.
+            Create a new variant record with optional clinical annotations. Once saved, the
+            associated sample status updates automatically, reflecting real-time in your
+            dashboard and analytics metrics.
           </p>
         </div>
 
@@ -421,8 +467,8 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
           </p>
           <h2 className="text-3xl font-semibold text-white">Search and filter variants</h2>
           <p className="text-sm leading-6 text-slate-400">
-            This table reflects live Supabase data only. Every row here is persisted and can
-            feed patient summaries, reports, and analytics.
+            Browse and search all genomic variants with real-time updates. Each variant
+            integrates with patient profiles, clinical reports, and analytical insights.
           </p>
         </div>
 
@@ -444,7 +490,7 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
             ))}
           </select>
           <button
-            className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+            className="ui-button inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             type="submit"
           >
             Apply Filters
@@ -469,9 +515,8 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
                     </p>
                   </div>
                   <span
-                    className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${getVariantClassificationClasses(
-                      variant.classification,
-                    )}`}
+                    className="inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]"
+                    style={classificationStyles[variant.classification]}
                   >
                     {variant.classification.replace(/_/g, " ")}
                   </span>
@@ -503,7 +548,8 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
                     variant.annotationSources.map((source) => (
                       <span
                         key={`${variant.id}-${source}`}
-                        className="rounded-full border border-fuchsia-200 bg-fuchsia-50 px-2.5 py-1 text-[11px] uppercase tracking-[0.18em] text-fuchsia-700"
+                        className="inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]"
+                        style={annotationStyles[source]}
                       >
                         {source}
                       </span>
@@ -589,9 +635,8 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
                     </td>
                     <td className="px-6 py-5">
                       <span
-                        className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${getVariantClassificationClasses(
-                          variant.classification,
-                        )}`}
+                        className="inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]"
+                        style={classificationStyles[variant.classification]}
                       >
                         {variant.classification.replace(/_/g, " ")}
                       </span>
@@ -602,7 +647,8 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
                           variant.annotationSources.map((source) => (
                             <span
                               key={`${variant.id}-${source}`}
-                              className="rounded-full border border-fuchsia-400/20 bg-fuchsia-400/10 px-2.5 py-1 text-[11px] uppercase tracking-[0.18em] text-fuchsia-100"
+                              className="inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]"
+                              style={annotationStyles[source]}
                             >
                               {source}
                             </span>
@@ -692,7 +738,7 @@ export default async function VariantsPage({ searchParams }: VariantsPageProps) 
 
       <section className="rounded-[32px] border border-white/10 bg-white/5 p-6">
         <p className="font-mono text-xs uppercase tracking-[0.26em] text-cyan-300">
-          Disease-Gene Association Database
+          Disease-Gene Associations
         </p>
         <h2 className="mt-3 text-2xl font-semibold text-white">
           Curated and variant-linked knowledge for the current inbox

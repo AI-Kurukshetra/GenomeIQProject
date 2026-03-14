@@ -24,7 +24,7 @@ export function PageGuideButton({
 }: PageGuideButtonProps) {
   return (
     <Dialog>
-      <DialogTrigger className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 shadow-[0_12px_28px_rgba(148,163,184,0.12)] transition-colors hover:bg-slate-50">
+      <DialogTrigger className="ui-button inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 shadow-[0_12px_28px_rgba(148,163,184,0.12)] transition-colors hover:bg-slate-50">
         <CircleHelp className="h-4 w-4 text-sky-500" />
         Guide
       </DialogTrigger>

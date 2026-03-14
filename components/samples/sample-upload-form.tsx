@@ -326,7 +326,7 @@ export function SampleUploadForm({
           {phase === "uploading" ? "Uploading..." : "Upload Sample"}
         </Button>
         <Link
-          className="inline-flex h-11 items-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700"
+          className="ui-button inline-flex h-11 items-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700"
           href="/samples"
         >
           View Samples
